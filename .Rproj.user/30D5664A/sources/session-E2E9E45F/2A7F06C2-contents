@@ -1,0 +1,24 @@
+Package: epcTools
+Type: Package
+Title: Modelling ecophysiological traits using OU models that vary with the environment
+Version: 0.1.0
+Author: T. Mason Linscott
+Maintainer: T. Mason Linscottt <mason.linscott@gmail.com>
+Description: Given a tree, an environmental curve, and trait values, this package permits OU model parameters to vary with the environmental curve under a defined relationship (e.g. linear, step, custom).
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr,
+    bayou,
+    phytools,
+    geiger,
+    BAMMtools,
+    dplyr,
+    PCMBase,
+    castor,
+    adephylo,
+    dentist,
+    spatstat.utils,
+    doParallel
+RoxygenNote: 7.2.3

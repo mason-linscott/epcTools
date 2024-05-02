@@ -1,0 +1,27 @@
+{
+    "id": "ACEF7A31",
+    "path": "~/Downloads/epcTools/epcTools/R/makeEpochSimmap.R",
+    "project_path": "R/makeEpochSimmap.R",
+    "type": "r_source",
+    "hash": "3702572782",
+    "contents": "",
+    "dirty": false,
+    "created": 1714680961191.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "13,0",
+        "scrollLine": "0"
+    },
+    "folds": "13|42|30|0|\n",
+    "lastKnownWriteTime": 1714680677,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1714680965003,
+    "read_only": false,
+    "read_only_alternatives": []
+}
