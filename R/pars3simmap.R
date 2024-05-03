@@ -117,3 +117,9 @@ pars3simmap<-function (pars, tree)
   }
 }
 
+getBranchesSlice <- function(slice, tree, nH1,nH2){
+  present <- unname(which(apply(nH1, 1, function(x) slice < x[2] & slice > x[1])))
+  locs <- (slice) - nH1[present,1]
+  return(list(branches=present, nodes=tree$edge[present,2], locl=unname(locs)))
+}
+

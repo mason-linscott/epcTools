@@ -1,0 +1,87 @@
+---
+title: "epcTools example"
+author: "mlinscott"
+date: "2024-05-03"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## epcTools - a package for incorporating environment into parameters of Ornstein-Uhlenbeck models
+
+First, lets install epc tools if you don't have it already.
+
+```{r packages,  echo=FALSE}
+require(devtools)
+#install_github("https://github.com/mason-linscott/epcTools")
+require(dplyr)
+require(bayou)
+require(phytools)
+require(geiger)
+require(BAMMtools)
+require(dplyr)
+require(PCMBase)
+require(castor)
+require(adephylo)
+require(dentist)
+require(spatstat.utils)
+require(doParallel)
+require(epcTools)
+require(dentist)
+```
+
+## Prepare a simulated example
+
+We will need to simulate a phylogeny and environmental vector. We can then use these two to simulate an EPC cache object which will vary with the trait of interest.
+
+The sim.EPC function requires several arguments. First, the tree and environmental values but also including other parameters documented elsewhere such as the type of EPC relationship and what variable(s) are affected by the environment. Here we simulate a cache object with alpha and theta varying with the environment and ten time slices.
+
+```{r simulate}
+#Tree and environment
+tree_example<-simTree(100,200,100,1)
+env_example<-(c(6,8,11,13,9,8,5,4,8,10))
+
+#Parameters to simulate under
+base_sig2=0.5
+base_b0_t=1
+base_b1_t=2
+base_b0_a=0.01
+base_b1_a=0.03
+base_slice=10
+
+
+sim0.5f_200b_at_linear<-sim.EPC(tree_example,epc_params=c("alpha","theta"),m_type="linear",X=env_example,n_slice=base_slice,1,b0_a=base_b0_a,b1_a=base_b1_a,sig2=base_sig2,b0_t=base_b0_t,b1_t=base_b1_t)
+
+```
+
+## Visualize how the traits are varying with the environment
+
+```{r phenogram}
+#EPC phenogram
+simEPC.phenogram(sim0.5f_200b_at_linear[[1]],10)
+
+```
+
+## epcTools maximum likelihood search
+
+Now, lets see if we can recover the parameters we simulated our model under. This requires invoking the epc.max.lik() function. Note that this function can take a vector of starting parameters fed by the user or find one automatically using the start.searcher function.
+
+```{r search}
+#EPC phenogram
+example_results<-epc.max.lik(sim0.5f_200b_at_linear[[1]])
+
+example_results
+
+```
+
+## Dentist parameter visualization
+
+```{r visualization}
+#EPC phenogram
+plot(example_results)
+
+```
