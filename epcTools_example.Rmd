@@ -3,8 +3,8 @@ title: "epcTools example"
 author: "mlinscott"
 date: "2024-05-03"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 First, lets install epc tools if you don't have it already.
 
-```{r packages,  echo=FALSE}
+```{r packages, include=FALSE}
 require(devtools)
 #install_github("https://github.com/mason-linscott/epcTools")
 require(dplyr)
@@ -32,6 +32,7 @@ require(spatstat.utils)
 require(doParallel)
 require(epcTools)
 require(dentist)
+require(optimx)
 ```
 
 ## Prepare a simulated example

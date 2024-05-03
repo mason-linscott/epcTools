@@ -8,17 +8,6 @@ Description: Given a tree, an environmental curve, and trait values, this packag
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-Imports:
-    dplyr,
-    bayou,
-    phytools,
-    geiger,
-    BAMMtools,
-    dplyr,
-    PCMBase,
-    castor,
-    adephylo,
-    dentist,
-    spatstat.utils,
-    doParallel
+Imports:dplyr, bayou, phytools, geiger, BAMMtools, dplyr, PCMBase, castor, adephylo, dentist, spatstat.utils, doParallel, ape
+    
 RoxygenNote: 7.2.3
