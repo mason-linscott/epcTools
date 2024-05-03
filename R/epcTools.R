@@ -8,4 +8,20 @@
 #' @author T. Mason Linscott \email{mason.linscott@gmail.com}
 #'
 #' @name epcTools
+#'
+#' @import dplyr
+#' @import bayou
+#' @import phytools
+#' @import geiger
+#' @import BAMMtools
+#' @import dplyr
+#' @import PCMBase
+#' @import castor
+#' @import adephylo
+#' @import dentist
+#' @import spatstat.utils
+#' @import doParallel
+#' @import ape
+#' @import optimx
+
 NULL
