@@ -2,6 +2,7 @@
 % Please edit documentation in R/epcTools.R
 \docType{package}
 \name{epcTools}
+\alias{epcTools-package}
 \alias{epcTools}
 \title{epcTools Package}
 \description{
