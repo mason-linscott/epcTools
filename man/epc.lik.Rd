@@ -11,14 +11,14 @@ epc.lik(cache, p, method, c_t = NULL, c_a = NULL)
 
 \item{p}{Numeric vector of starting parameters to be loaded corresponding to parameters specified in cache object (format: theta, sig2, alpha; if any parameter varies with the environment the model parameters follow the same order). If NULL start.searcher function will be run instead.}
 
-\item{method}{A string corresponding to the optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.}
+\item{method}{A string corresponding to the optimx::optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.}
 
 \item{c_t}{A custom theta function under an EPC process, NULL if linear or step is being used.}
 
 \item{c_a}{A custom alpha function under an EPC process, NULL if linear or step is being used.}
 }
 \value{
-A table of parameters (theta,sig2, and alpha or any combination of EPC model parameters) with a likelihood, execution time, model convergence parameters from optimx (ignore), and AIC.
+A table of parameters (theta,sig2, and alpha or any combination of EPC model parameters) with a likelihood, execution time, model convergence parameters from optimx::optimx (ignore), and AIC.
 }
 \description{
 Performs a single maximum likelihood search under an EPC process for one or more OU model parameters

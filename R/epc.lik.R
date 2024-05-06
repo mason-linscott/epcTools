@@ -6,25 +6,25 @@
 #'
 #' @param p Numeric vector of starting parameters to be loaded corresponding to parameters specified in cache object (format: theta, sig2, alpha; if any parameter varies with the environment the model parameters follow the same order). If NULL start.searcher function will be run instead.
 #'
-#' @param method A string corresponding to the optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.
+#' @param method A string corresponding to the optimx::optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.
 #'
 #' @param c_t A custom theta function under an EPC process, NULL if linear or step is being used.
 #'
 #' @param c_a A custom alpha function under an EPC process, NULL if linear or step is being used.
 #'
-#' @return A table of parameters (theta,sig2, and alpha or any combination of EPC model parameters) with a likelihood, execution time, model convergence parameters from optimx (ignore), and AIC.
+#' @return A table of parameters (theta,sig2, and alpha or any combination of EPC model parameters) with a likelihood, execution time, model convergence parameters from optimx::optimx (ignore), and AIC.
 #'
 #' @export
 epc.lik<- function(cache,p,method,c_t=NULL,c_a=NULL){
   #lik_funk is the actual likelihood function - params go in, likelihood comes out.
-  #all the rest is for getting parameters ready for optimx, or for finding starting parameters
+  #all the rest is for getting parameters ready for optimx::optimx, or for finding starting parameters
   lik_funk <- PCMBase::PCMCreateLikelihood(cache$PCM.X, cache$PCMtree, model=cache$pcmModel_l,
                                            metaI=cache$metaI)
   if (missing(p) && is.null(c_t) && is.null(c_a)) {
     p=as.numeric(start.searcher(cache))
   }
 
-  #lik_func is for feeding in parameters to optimx depending on model type
+  #lik_func is for feeding in parameters to optimx::optimx depending on model type
   lik_func<-function(p,cache,c_t,c_a){
     pars=list()
 
@@ -131,7 +131,7 @@ epc.lik<- function(cache,p,method,c_t=NULL,c_a=NULL){
       return(lik)
     }
   }
-  print("Finding maximum likelihood...")
+
   if (all(c("theta","alpha") %in%  cache$epc_params)) {
     if (cache$m_type=="linear") {
       result<-optimx::optimx(c(p[1],p[2],p[3],p[4],p[5]),lik_func,cache=cache,method=method)

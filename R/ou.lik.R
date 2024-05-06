@@ -6,22 +6,23 @@
 #'
 #' @param p Numeric vector of starting parameters to be loaded corresponding to theta, sig2, and alpha. If NULL start.searcher function will be run instead.
 #'
-#' @param method A string corresponding to the optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.
+#' @param method A string corresponding to the optimx::optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.
 #'
 #' @param c_t A custom theta function under an EPC process, NULL for OU models.
 #'
 #' @param c_a A custom alpha function under an EPC process, NULL for OU models.
 #'
-#' @return A table of parameters (theta, sig2, and alpha) with a likelihood, execution time, model convergence parameters from optimx (ignore), and AIC.
+#' @return A table of parameters (theta, sig2, and alpha) with a likelihood, execution time, model convergence parameters from optimx::optimx (ignore), and AIC.
 #'
 #' @export
 ou.lik <- function(cache,p,method,c_t=NULL,c_a=NULL) {
   if (missing(p) && is.null(c_t) && is.null(c_a)) {
     p=as.numeric(start.searcher(cache))
   }
-  pcmModel_ou <- PCM(1, model="OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x")
-  PCMtree<-PCMTree(cache$tree)
-  metaI <- PCMInfo(cache$PCM.X, PCMtree, pcmModel_ou)
+  pcmModel_ou <- PCMBase::PCM(1,
+model="OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x")
+  PCMtree<-PCMBase::PCMTree(cache$tree)
+  metaI <- PCMBase::PCMInfo(cache$PCM.X, PCMtree, pcmModel_ou)
 
   ou.lik.pars2pcmbase <- function(pars,cache){
     .p <- c(pars$alpha, pars$theta, pars$sig2)

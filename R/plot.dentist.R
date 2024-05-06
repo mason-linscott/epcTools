@@ -18,7 +18,7 @@ plot.epc<-function(epc_out,local.only=FALSE, ...){
   results_outside <- subset(results, results$color=="gray")
   results_inside <- subset(results, results$color=="black")
   graphics::par(mfrow=c(ceiling(nplots/nparams), nparams))
-  for (i in sequence(nparams)) {
+  for (i in base::sequence(nparams)) {
     if(local.only){
       xlim=range(results_inside[,i+1])
       ylim=c(range(results_inside[,1]))
@@ -30,8 +30,8 @@ plot.epc<-function(epc_out,local.only=FALSE, ...){
     graphics::abline(h=threshold, col="blue")
     graphics::points(results[which.min(results[,1]), i+1], results[which.min(results[,1]),1], pch=21, col="red")
   }
-  for (i in sequence(nparams)) {
-    for (j in sequence(nparams)) {
+  for (i in base::sequence(nparams)) {
+    for (j in base::sequence(nparams)) {
       if(j>i) {
         if(local.only){
           xlim=range(results_inside[,i+1])

@@ -16,7 +16,7 @@ epc.max.lik(cache, p, c_t = NULL, c_a = NULL, skip_dentist = FALSE)
 \item{c_a}{A custom alpha function under an EPC process, NULL if linear or step is being used.}
 }
 \value{
-A list including a table of parameters (theta,sig2, and alpha or any combination of EPC model parameters) with likelihood, execution time, model convergence parameters from optimx (ignore), and AIC. Dentist output with 95% confidence interval values for all parameters.
+A list including a table of parameters (theta,sig2, and alpha or any combination of EPC model parameters) with likelihood, execution time, model convergence parameters from optimx::optimx (ignore), and AIC. Dentist output with 95% confidence interval values for all parameters.
 }
 \description{
 Performs repeated maximum likelihood searches under an EPC process for one or more OU model parameters. Then, performs a dentist run to determine 95% CI for model parameters.

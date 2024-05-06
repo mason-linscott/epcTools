@@ -78,7 +78,7 @@ sim.EPC<-function(mtree,epc_params,m_type,X,n_slice,reps_per_tree=1,
   max_time<-max(nodeHeights(mtree)) # get max time for slicing
 
   for(j in 1:reps_per_tree){
-    rmap <- makeEpochSimmap(mtree, seq(0,max_time, length.out=(n_slice+1))[2:n_slice]) #make the epoch simmap
+    rmap <- makeEpochSimmap(mtree, base::seq(0,max_time, length.out=(n_slice+1))[2:n_slice]) #make the epoch simmap
 
     ##pars## a list of parameters that will be used to make the EPC models
     pars <- list()
@@ -140,17 +140,17 @@ sim.EPC<-function(mtree,epc_params,m_type,X,n_slice,reps_per_tree=1,
     }
 
 
-    dat <- setNames(rnorm(Ntip(mtree), 0, 1), mtree$tip.label) #dummy data
-    cache <- bayou:::.prepare.ou.univariate(mtree, dat, SE=0, pred=NULL) #creates all the paremters in one nice cache to be called later
+    dat <- setNames(stats::rnorm(Ntip(mtree), 0, 1), mtree$tip.label) #dummy data
+    cache <- .prepare.ou.univariate(mtree, dat, SE=0, pred=NULL) #creates all the paremters in one nice cache to be called later
 
     ## Functions that converts simmap to singleton tree.
     siTree <- phytools::map.to.singleton(rmap$smap)
     siTree$edge.regime <- names(siTree$edge.length)
     siTree$edge.jump <- rep(0L, length(siTree$edge.length))
-    cache$PCMtree <- PCMTree(siTree)
+    cache$PCMtree <- PCMBase::PCMTree(siTree)
 
     ## Steps: Make model
-    pcmModel <- MixedGaussian(1, modelTypes=rep("OU__Global_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x", (n_slice)),
+    pcmModel <- PCMBase::MixedGaussian(1, modelTypes=rep("OU__Global_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x", (n_slice)),
                               mapping=1:(n_slice))
 
     pars2pcmbase <- function(pars){
@@ -177,7 +177,7 @@ sim.EPC<-function(mtree,epc_params,m_type,X,n_slice,reps_per_tree=1,
     PCMBase::PCMParamLoadOrStore(pcmModel, pars2pcmbase(pars), offset=0L,
                                  k=1, R = (n_slice), load = TRUE)
 
-    pcmModel_l <- MixedGaussian(1, modelTypes=rep("OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x", (n_slice)),
+    pcmModel_l <- PCMBase::MixedGaussian(1, modelTypes=rep("OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x", (n_slice)),
                                 mapping=1:(n_slice))
 
 
@@ -188,10 +188,10 @@ sim.EPC<-function(mtree,epc_params,m_type,X,n_slice,reps_per_tree=1,
     cache$pcmModel <- pcmModel #the actual model object
     cache$pcmModel_l <- pcmModel #the actual model object
     cache$PCM.X <- t(cache$dat) # the actual data object
-    metaI <- PCMInfo(t(cache$dat), cache$PCMtree, cache$pcmModel) #meta information required by PCMBase
+    metaI <- PCMBase::PCMInfo(t(cache$dat), cache$PCMtree, cache$pcmModel) #meta information required by PCMBase
     simdat <- PCMSim(cache$PCMtree, model=cache$pcmModel, X0=cache$pcmModel$X0[1]) #here is the simulated data
     cache$PCM.X <- t(simdat[1,1:Ntip(mtree)]) #retain simulated data in list
-    cache$metaI <- PCMInfo(t(simdat[1,1:Ntip(mtree)]), cache$PCMtree, cache$pcmModel) #retain simulated data in list
+    cache$metaI <- PCMBase::PCMInfo(t(simdat[1,1:Ntip(mtree)]), cache$PCMtree, cache$pcmModel) #retain simulated data in list
     cache$rmap<-rmap #retain simulated simmap in list
     cache$n_slice<-n_slice #retain number of slices for lik calc
     cache$environment<-sliceEnv

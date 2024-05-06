@@ -10,7 +10,7 @@
 #'
 #' @param c_a A custom alpha function under an EPC process, NULL if linear or step is being used.
 #'
-#' @return A list including a table of parameters (theta,sig2, and alpha or any combination of EPC model parameters) with likelihood, execution time, model convergence parameters from optimx (ignore), and AIC. Dentist output with 95% confidence interval values for all parameters.
+#' @return A list including a table of parameters (theta,sig2, and alpha or any combination of EPC model parameters) with likelihood, execution time, model convergence parameters from optimx::optimx (ignore), and AIC. Dentist output with 95% confidence interval values for all parameters.
 #'
 #' @export
 epc.max.lik<-function(cache,p,c_t=NULL,c_a=NULL,skip_dentist=FALSE){
@@ -23,11 +23,11 @@ epc.max.lik<-function(cache,p,c_t=NULL,c_a=NULL,skip_dentist=FALSE){
   }
 
   if (any(c("BM") %in%  cache$epc_params)){
-    max.lik<-bm.lik
+    max.lik<-epcTools::bm.lik
   }
 
   if (any(c("OU") %in%  cache$epc_params)){
-    max.lik<-ou.lik
+    max.lik<-epcTools::ou.lik
   }
 
   #run start searcher and any user parameters to get initial likelihoods

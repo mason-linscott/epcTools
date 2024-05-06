@@ -13,7 +13,7 @@
 drop.epoch.fossil <- function(phy, m, M, tol = 1e-8)
 {
   n <- Ntip(phy)
-  x<-get_all_distances_to_root(phy)[1:n]
+  x<-castor::get_all_distances_to_root(phy)[1:n]
   t<- max(x) -x
   drop.tip(phy, phy$tip.label[which(t > m + tol & t < M)])
 }

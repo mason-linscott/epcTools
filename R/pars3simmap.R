@@ -88,38 +88,3 @@ pars3simmap<-function (pars, tree)
   return(list(tree = new.tree, pars = new.pars, col = col))
 }
 
-.addshift2map <- function(x,maps=maps,sb=sb,loc=loc,t2=t2){
-  m <- maps[[sb[x]]]
-  cs.m <- cumsum(m)
-  o <- min(which(cs.m>loc[x]))
-  if(o==1){
-    m[o] <- loc[x]
-  } else {
-    m[o] <- loc[x]-cs.m[o-1]
-  }
-  new.m <- cs.m[o]-loc[x]
-  names(new.m) <- t2[x]
-  M <- c(m[1:o],new.m,m[1:length(m) > o])
-  return(M)
-}
-
-.nodeHeights <- function(tree, scale="YBP"){
-  branchTimes <- signif(BAMMtools:::NU.branching.times(tree),5)
-  TH <- max(branchTimes)
-  n.tip <- length(tree$tip.label)
-  branchTimes <- c(setNames(rep(0, n.tip), 1:n.tip), branchTimes)
-  nH <- cbind(branchTimes[tree$edge[,1]], branchTimes[tree$edge[,2]])
-  if(scale=="YBP"){
-    return(nH)
-  }
-  if(scale=="ABS"){
-    return(TH-nH)
-  }
-}
-
-getBranchesSlice <- function(slice, tree, nH1,nH2){
-  present <- unname(which(apply(nH1, 1, function(x) slice < x[2] & slice > x[1])))
-  locs <- (slice) - nH1[present,1]
-  return(list(branches=present, nodes=tree$edge[present,2], locl=unname(locs)))
-}
-

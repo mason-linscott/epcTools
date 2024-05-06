@@ -83,7 +83,7 @@ consist.sim <- function(params,cache,reps,cores,c_t=NULL,c_a=NULL) {
   registerDoParallel(cl)
 
   BM_consist <- foreach(f=1:reps, .combine=rbind,.packages=c('phytools','bayou','geiger','BAMMtools','dplyr','PCMBase','castor')) %dopar% {
-    source("epc_042424.R")
+    require(epcTools)
     power_sim[[f]]$epc_params<-"BM"
     tempMatrix = as.data.frame(epc.max.lik(power_sim[[f]],c(theta_s,sig_s),skip_dentist=TRUE)) #calling a function
     #do other things if you want
@@ -91,7 +91,7 @@ consist.sim <- function(params,cache,reps,cores,c_t=NULL,c_a=NULL) {
   }
   print("BM OK")
   OU_consist <- foreach(f=1:reps, .combine=rbind,.packages=c('phytools','bayou','geiger','BAMMtools','dplyr','PCMBase','castor')) %dopar% {
-    source("epc_042424.R")
+    require(epcTools)
     power_sim[[f]]$epc_params<-"OU"
     tempMatrix = as.data.frame(epc.max.lik(power_sim[[f]],c(theta_s,sig_s,alpha_s),skip_dentist=TRUE)) #calling a function
     #do other things if you want
@@ -100,7 +100,7 @@ consist.sim <- function(params,cache,reps,cores,c_t=NULL,c_a=NULL) {
   print("OU OK")
 
   EPC_a_consist <- foreach(f=1:reps, .combine=rbind,.packages=c('phytools','bayou','geiger','BAMMtools','dplyr','PCMBase','castor')) %dopar% {
-    source("epc_042424.R")
+    require(epcTools)
     power_sim[[f]]$epc_params<-"alpha"
     tempMatrix = as.data.frame(epc.max.lik(power_sim[[f]],c(theta_s,sig_s,b0a_s,b1a_s),skip_dentist=TRUE)) #calling a function
     #do other things if you want
@@ -109,7 +109,7 @@ consist.sim <- function(params,cache,reps,cores,c_t=NULL,c_a=NULL) {
   print("EPC A OK")
 
   EPC_t_consist <- foreach(f=1:reps, .combine=rbind,.packages=c('phytools','bayou','geiger','BAMMtools','dplyr','PCMBase','castor')) %dopar% {
-    source("epc_042424.R")
+    require(epcTools)
     power_sim[[f]]$epc_params<-"theta"
     tempMatrix = as.data.frame(epc.max.lik(power_sim[[f]],c(b0t_s,b1t_s,sig_s,alpha_s),skip_dentist=TRUE)) #calling a function
     #do other things if you want
@@ -118,7 +118,7 @@ consist.sim <- function(params,cache,reps,cores,c_t=NULL,c_a=NULL) {
   print("EPC T OK")
 
   EPC_at_consist <- foreach(f=1:reps, .combine=rbind,.packages=c('phytools','bayou','geiger','BAMMtools','dplyr','PCMBase','castor')) %dopar% {
-    source("epc_042424.R")
+    require(epcTools)
     power_sim[[f]]$epc_params<-c("alpha","theta")
     tempMatrix = as.data.frame(epc.max.lik(power_sim[[f]],c(b0t_s,b1t_s,sig_s,b0a_s,b1a_s),skip_dentist=TRUE)) #calling a function
     #do other things if you want
@@ -126,7 +126,7 @@ consist.sim <- function(params,cache,reps,cores,c_t=NULL,c_a=NULL) {
   }
 
   print("EPC AT OK")
-  stopCluster(cl)
+  doParallel::stopCluster(cl)
 
   power_results<-list()
   power_results$BM<-BM_consist

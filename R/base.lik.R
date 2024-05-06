@@ -101,9 +101,10 @@ base.lik <- function(cache,p,c_t=NULL,c_a=NULL) {
 
   if ("OU" %in% cache$epc_params) {
 
-    pcmModel_ou <- PCM(1, model="OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x")
-    PCMtree<-PCMTree(cache$tree)
-    metaI <- PCMInfo(cache$PCM.X, PCMtree, pcmModel_ou)
+    pcmModel_ou <- PCMBase::PCM(1, 
+model="OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x")
+    PCMtree<-PCMBase::PCMTree(cache$tree)
+    metaI <- PCMBase::PCMInfo(cache$PCM.X, PCMtree, pcmModel_ou)
 
     ou.lik.pars2pcmbase <- function(pars,cache){
       .p <- c(pars$alpha, pars$theta, pars$sig2)
@@ -127,9 +128,9 @@ base.lik <- function(cache,p,c_t=NULL,c_a=NULL) {
   }
 
   if ("BM" %in% cache$epc_params) {
-    pcmModel_bm <- PCM(1, model="BM__Global_X0__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x")
-    PCMtree<-PCMTree(cache$tree)
-    metaI <- PCMInfo(cache$PCM.X, PCMtree, pcmModel_bm)
+    pcmModel_bm <- PCMBase::PCM(1, model="BM__Global_X0__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x")
+    PCMtree<-PCMBase::PCMTree(cache$tree)
+    metaI <- PCMBase::PCMInfo(cache$PCM.X, PCMtree, pcmModel_bm)
 
     BM.lik.pars2pcmbase <- function(pars,cache){
       p <- c(pars$theta, pars$sig2)
