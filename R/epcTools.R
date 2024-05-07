@@ -10,7 +10,6 @@
 #' @name epcTools
 #'
 #' @import dplyr
-#' @import bayou
 #' @import phytools
 #' @import geiger
 #' @import BAMMtools
