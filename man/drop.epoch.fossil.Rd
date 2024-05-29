@@ -2,7 +2,7 @@
 % Please edit documentation in R/drop.epoch.fossil.R
 \name{drop.epoch.fossil}
 \alias{drop.epoch.fossil}
-\title{Drop all tips from epoch}
+\title{Drop all tips from a time epoch}
 \usage{
 drop.epoch.fossil(phy, m, M, tol = 1e-08)
 }
@@ -17,5 +17,5 @@ drop.epoch.fossil(phy, m, M, tol = 1e-08)
 A tree with dropped extant tips
 }
 \description{
-Drop all tips from epoch
+Drop all tips from a time epoch
 }

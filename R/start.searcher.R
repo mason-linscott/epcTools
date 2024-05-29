@@ -76,14 +76,14 @@ start.searcher<-function(cache) {
 
   tip_root_length<-adephylo::distRoot(cache$phy)
   max_height<-max(nodeHeights(cache$phy))
-  max_alpha<-log(2)/quantile(BAMMtools:::NU.branching.times(cache$phy),probs = base::seq(0, 1, 0.05))[4]
+  max_alpha<-log(2)/quantile(BAMMtools:::NU.branching.times(cache$phy),probs = base::seq(0, 1, 0.05))[2]
 
   if ("OU" %in% cache$epc_params)  {
     alpha_base_seq<-base::seq(0,max_alpha,max_alpha/10)[1:10]*stats::runif(1,0.9,1)
     theta_mean=mean(cache$PCM.X)
     theta_base_seq=base::seq(theta_mean,theta_mean*10,theta_mean)*stats::runif(1,0.9,1)
     sigma_mean=var(as.numeric(cache$PCM.X))/max(nodeHeights(cache$PCMtree))
-    sigma_base_seq=c(sigma_mean*stats::runif(1,0.9,1),sigma_mean*5*stats::runif(1,0.9,1),sigma_mean*10*stats::runif(1,0.9,1),sigma_mean*50*stats::runif(1,0.9,1),sigma_mean*100*stats::runif(1,0.9,1),sigma_mean*200*stats::runif(1,0.9,1),sigma_mean*500*stats::runif(1,0.9,1))
+    sigma_base_seq=sigma_mean*stats::runif(1,0.9,1)*c(1/20,1/10,1/5,1,5,10,50,100,200,500)
     combos_n<-expand.grid(theta_base_seq,sigma_base_seq,alpha_base_seq)
     if (nrow(combos_n)>500) {
       combos_t<-sample_n(combos_n,500)
@@ -97,7 +97,7 @@ start.searcher<-function(cache) {
     theta_mean=mean(cache$PCM.X)*stats::runif(1,0.9,1)
     theta_base_seq=base::seq(theta_mean,theta_mean*10,theta_mean)*stats::runif(1,0.9,1)
     sigma_mean=var(as.numeric(cache$PCM.X))/max(nodeHeights(cache$PCMtree))
-    sigma_base_seq=c(sigma_mean*stats::runif(1,0.9,1),sigma_mean*5*stats::runif(1,0.9,1),sigma_mean*10*stats::runif(1,0.9,1),sigma_mean*50*stats::runif(1,0.9,1),sigma_mean*100*stats::runif(1,0.9,1),sigma_mean*200*stats::runif(1,0.9,1),sigma_mean*500*stats::runif(1,0.9,1))
+    sigma_base_seq=sigma_mean*stats::runif(1,0.9,1)*c(1/20,1/10,1/5,1,5,10,50,100,200,500)
     combos_n<-expand.grid(theta_base_seq,sigma_base_seq)
     if (nrow(combos_n)>500) {
       combos_t<-sample_n(combos_n,500)
@@ -113,8 +113,7 @@ start.searcher<-function(cache) {
       b0b1t_unique<-b0b1t_gen(cache)
 
       sigma_mean=var(as.numeric(cache$PCM.X))/max(nodeHeights(cache$PCMtree))
-      sigma_base_seq=c(sigma_mean*stats::runif(1,0.9,1),sigma_mean*5*stats::runif(1,0.9,1),sigma_mean*10*stats::runif(1,0.9,1),sigma_mean*50*stats::runif(1,0.9,1),sigma_mean*100*stats::runif(1,0.9,1),sigma_mean*200*stats::runif(1,0.9,1),sigma_mean*500*stats::runif(1,0.9,1))
-
+      sigma_base_seq=sigma_mean*stats::runif(1,0.9,1)*c(1/20,1/10,1/5,1,5,10,50,100,200,500)
       combos_n_pre<-expand.grid(b0b1t_unique[,1],sigma_base_seq,b0b1a_unique[,1])
 
       colnames(combos_n_pre)<-c("b0t","sigma","b0a")
@@ -164,7 +163,7 @@ start.searcher<-function(cache) {
       theta_mean=mean(cache$PCM.X)*stats::runif(1,0.7,1)
       theta_base_seq=base::seq(theta_mean/2,theta_mean*2,theta_mean)*stats::runif(1,0.7,1)
       sigma_mean=var(as.numeric(cache$PCM.X))/max(nodeHeights(cache$PCMtree))
-      sigma_base_seq=c(sigma_mean,sigma_mean*5*stats::runif(1,0.9,1),sigma_mean*10*stats::runif(1,0.9,1),sigma_mean*50*stats::runif(1,0.9,1),sigma_mean*100*stats::runif(1,0.9,1),sigma_mean*200*stats::runif(1,0.9,1),sigma_mean*500*stats::runif(1,0.9,1))
+      sigma_base_seq=sigma_mean*stats::runif(1,0.9,1)*c(1/20,1/10,1/5,1,5,10,50,100,200,500)
 
       combos_n_pre<-expand.grid(theta_base_seq,sigma_base_seq,b0b1a_unique[,1])
 
@@ -210,7 +209,7 @@ start.searcher<-function(cache) {
 
       b0b1t_unique<-b0b1t_gen(cache)
       sigma_mean=var(as.numeric(cache$PCM.X))/max(nodeHeights(cache$PCMtree))
-      sigma_base_seq=c(sigma_mean,sigma_mean*5*stats::runif(1,0.9,1),sigma_mean*10*stats::runif(1,0.9,1),sigma_mean*50*stats::runif(1,0.9,1),sigma_mean*100*stats::runif(1,0.9,1),sigma_mean*200*stats::runif(1,0.9,1))
+      sigma_base_seq=sigma_mean*stats::runif(1,0.9,1)*c(1/20,1/10,1/5,1,5,10,50,100,200,500)
       alpha_base_seq<-base::seq(0,max_alpha,max_alpha/10)[1:10]
 
       combos_n_pre<-expand.grid(b0b1t_unique[,1],sigma_base_seq,alpha_base_seq)

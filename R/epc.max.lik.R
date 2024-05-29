@@ -1,4 +1,4 @@
-#' EPC likelihood function
+#' EPC maximum likelihood multisearch function
 #'
 #' Performs repeated maximum likelihood searches under an EPC process for one or more OU model parameters. Then, performs a dentist run to determine 95% CI for model parameters.
 #'
@@ -64,7 +64,7 @@ epc.max.lik<-function(cache,p,c_t=NULL,c_a=NULL,skip_dentist=FALSE){
 
   lik8_ref<-max.lik(cache,p=as.numeric(lik7_start[1:length(p)]),method="BFGS",c_a=NULL,c_t=NULL)
 
-  cat(paste0("Last search \tAIC:", round(lik8_ref$AIC,2)))
+  cat(paste0("Last search \tAIC:", round(lik8_ref$AIC,2),"\n"))
 
   final_table<-rbind(init_lik,lik2_ref,lik3_start,lik4_ref,lik5_start,lik6_ref,lik7_start,lik8_ref)
 

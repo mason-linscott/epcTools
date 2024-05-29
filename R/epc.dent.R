@@ -14,6 +14,8 @@
 #'
 #' @return  Dentist output with 95% confidence interval values for all parameters.
 #'
+#' Note: This function can run into recursion limits on individual systems which may ultimately prevent it's use by epc.max.lik. Use the skip.dentist=TRUE flag on epc.max.lik if you run into this issue.
+#'
 #' @export
 epc.dent<- function(cache,pars,best_log,c_t=NULL,c_a=NULL,reps=NULL){
   #lik_funk is the actual likelihood function - params go in, likelihood comes out.
@@ -50,7 +52,7 @@ epc.dent<- function(cache,pars,best_log,c_t=NULL,c_a=NULL,reps=NULL){
              "OU"={
                lik_func<-function(pars,cache,c_t,c_a){
                  pars_epc=list()
-               pcmModel_ou <- PCMBase::PCM(1, 
+               pcmModel_ou <- PCMBase::PCM(1,
 model="OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x")
                PCMtree<-PCMBase::PCMTree(cache$tree)
                metaI <- PCMBase::PCMInfo(cache$PCM.X, PCMtree, pcmModel_ou)

@@ -1,4 +1,4 @@
-#' Drop random extant tip
+#' Drop a random set of extant tips
 #'
 #' @param phy A phylogenetic tree.
 #'

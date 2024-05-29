@@ -9,7 +9,7 @@
 #' @return  A phenogram plot of trait values through time.
 #'
 #' @export
-simEPC.phenogram<-function(cache,n) {
+sim.epc.phenogram<-function(cache,n) {
   mycol <- rgb(0, 0, 255, max = 255, alpha = 6, names = "blue50")
   simdat <- PCMSim(cache$PCMtree, model=cache$pcmModel, X0=cache$pcmModel$X0[1])
   phytools::phenogram(cache$PCMtree, simdat[1,], ftype="off",color=mycol, xlab=("Time from root (My)"), ylab=("Trait value"))

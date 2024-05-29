@@ -1,4 +1,4 @@
-#' Drop random fossil tip
+#' Drop a set of random fossil tips
 #'
 #' @param phy A phylogenetic tree.
 #'

@@ -54,7 +54,7 @@
 #'
 #' @export
 
-sim.EPC<-function(mtree,epc_params,m_type,X,n_slice,reps_per_tree=1,
+sim.epc<-function(mtree,epc_params,m_type,X,n_slice,reps_per_tree=1,
                   theta=NULL,sig2,alpha=NULL,
                   b0_a=NULL,b1_a=NULL,b0_t=NULL,b1_t=NULL,
                   step_thresh_t=NULL,step_high_t=NULL,step_low_t=NULL,
@@ -75,7 +75,7 @@ sim.EPC<-function(mtree,epc_params,m_type,X,n_slice,reps_per_tree=1,
   #sliceEnv<-getSliceEnv(X,n_slice,resolution)[,1]
   #sliceEnv[11]<-sliceEnv[10]
   sliceEnv<-X # specified time slices
-  max_time<-max(nodeHeights(mtree)) # get max time for slicing
+  max_time<-max(distRoot(mtree)) # get max time for slicing
 
   for(j in 1:reps_per_tree){
     rmap <- makeEpochSimmap(mtree, base::seq(0,max_time, length.out=(n_slice+1))[2:n_slice]) #make the epoch simmap

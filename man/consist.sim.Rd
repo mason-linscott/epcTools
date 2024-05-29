@@ -2,7 +2,7 @@
 % Please edit documentation in R/consist.sim.R
 \name{consist.sim}
 \alias{consist.sim}
-\title{Consistency simulator of EPC results}
+\title{A parametric bootstrap function for results of an EPC maxmimum likelihood search}
 \usage{
 consist.sim(params, cache, reps, cores, c_t = NULL, c_a = NULL)
 }
@@ -13,11 +13,11 @@ consist.sim(params, cache, reps, cores, c_t = NULL, c_a = NULL)
 
 \item{reps}{Number of simulations to perform}
 
-\item{cores}{Number of cores to use for simulations, do not exceed your computers limits!}
+\item{cores}{Number of cores to use for simulations, do not exceed your machines limits!}
 }
 \value{
-A list with maximum likelihood search results for each reptition under all model types and all results weighted by AIC weights.
+A list with maximum likelihood search results for each reptiion under all model types and all results weighted by AIC weights.
 }
 \description{
-Given parameter results from an epc.max.lik, simulate many EPC cache objects with same parameters to determine EPC model identifiability
+Given parameter results from an epc.max.lik search and an cache.epx object, perform a parametric bootstrap. Returns a AIC weight table corresponding to each model.
 }

@@ -19,6 +19,8 @@ epc.dent(cache, pars, best_log, c_t = NULL, c_a = NULL, reps = NULL)
 }
 \value{
 Dentist output with 95% confidence interval values for all parameters.
+
+Note: This function can run into recursion limits on individual systems which may ultimately prevent it's use by epc.max.lik. Use the skip.dentist=TRUE flag on epc.max.lik if you run into this issue.
 }
 \description{
 Performs dentist search for all model parameters for BM, OU, and EPC models

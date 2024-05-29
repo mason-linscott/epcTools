@@ -11,7 +11,7 @@
 #' @return A phylogeny
 #'
 #' @export
-simTree<-function(n_extant,tree_size,max_time,n_tree)
+sim.tree<-function(n_extant,tree_size,max_time,n_tree)
 {
   tree_list<-list() #store trees in list
   n_fossil=tree_size-n_extant
@@ -49,6 +49,7 @@ simTree<-function(n_extant,tree_size,max_time,n_tree)
 
     }
     tree$edge.length<-tree$edge.length/max(nodeHeights(tree)[,2])*max_time #scale to time
+    tree<-reorder(tree,"cladewise")
 
     tree_list[[g]]<-tree
 

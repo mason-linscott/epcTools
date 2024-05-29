@@ -4,18 +4,14 @@
 \alias{bm.lik}
 \title{BM likelihood function}
 \usage{
-bm.lik(cache, p, method, c_t = NULL, c_a = NULL)
+bm.lik(cache, p, method)
 }
 \arguments{
-\item{cache}{A cache object created using epcTools.}
+\item{cache}{A cache object created using the cache.epc function}
 
 \item{p}{Numeric vector of starting parameters to be loaded corresponding to theta and sig2. If NULL start.searcher function will be run instead.}
 
-\item{method}{A string corresponding to the optimx::optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.}
-
-\item{c_t}{A custom theta function under an EPC process, NULL for OU models.}
-
-\item{c_a}{A custom alpha function under an EPC process, NULL for OU models.}
+\item{method}{A string corresponding to the optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS' for the second.}
 }
 \value{
 A table of parameters (theta and sig2) with a likelihood, execution time, model convergence parameters from optimx::optimx (ignore), and AIC.

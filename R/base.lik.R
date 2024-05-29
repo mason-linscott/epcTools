@@ -4,7 +4,7 @@
 #'
 #' @param cache A cache object created using epcTools.
 #'
-#' @param pars Numeric vector of parameters to be loaded.
+#' @param p Numeric vector of parameters to be evaluated. This must equal the number of parameters expected in the cache object (i.e. theta, sig2, and alpha or EPC parameters that can be used to generate alpha/theta such as b0 and b1 for a linear model)
 #'
 #' @return A numeric likelihood value
 #'
@@ -101,7 +101,7 @@ base.lik <- function(cache,p,c_t=NULL,c_a=NULL) {
 
   if ("OU" %in% cache$epc_params) {
 
-    pcmModel_ou <- PCMBase::PCM(1, 
+    pcmModel_ou <- PCMBase::PCM(1,
 model="OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__Theta__Diagonal_WithNonNegativeDiagonal_Sigma_x__Omitted_Sigmae_x")
     PCMtree<-PCMBase::PCMTree(cache$tree)
     metaI <- PCMBase::PCMInfo(cache$PCM.X, PCMtree, pcmModel_ou)
@@ -152,8 +152,6 @@ model="OU__Omitted_X0__Schur_Diagonal_WithNonNegativeDiagonal_Transformable_H__T
     }
 
   }
-
-
 
   if(any(pars$alpha<0) || pars$sig2<0) {
     lik<- 99999999999

@@ -2,7 +2,7 @@
 % Please edit documentation in R/drop.random.fossil.R
 \name{drop.random.fossil}
 \alias{drop.random.fossil}
-\title{Drop random fossil tip}
+\title{Drop a set of random fossil tips}
 \usage{
 drop.random.fossil(phy, m, tol = 1e-08)
 }
@@ -15,5 +15,5 @@ drop.random.fossil(phy, m, tol = 1e-08)
 A tree with dropped extant tips
 }
 \description{
-Drop random fossil tip
+Drop a set of random fossil tips
 }

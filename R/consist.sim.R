@@ -1,6 +1,6 @@
-#' Consistency simulator of EPC results
+#' A parametric bootstrap function for results of an EPC maxmimum likelihood search
 #'
-#' Given parameter results from an epc.max.lik, simulate many EPC cache objects with same parameters to determine EPC model identifiability
+#' Given parameter results from an epc.max.lik search and an cache.epx object, perform a parametric bootstrap. Returns a AIC weight table corresponding to each model.
 #'
 #' @param params A single numeric row of parameter results from epc.max.lik,
 #'
@@ -8,9 +8,9 @@
 #'
 #' @param reps Number of simulations to perform
 #'
-#' @param cores Number of cores to use for simulations, do not exceed your computers limits!
+#' @param cores Number of cores to use for simulations, do not exceed your machines limits!
 #'
-#' @return A list with maximum likelihood search results for each reptition under all model types and all results weighted by AIC weights.
+#' @return A list with maximum likelihood search results for each reptiion under all model types and all results weighted by AIC weights.
 #'
 #' @export
 consist.sim <- function(params,cache,reps,cores,c_t=NULL,c_a=NULL) {
@@ -37,11 +37,13 @@ consist.sim <- function(params,cache,reps,cores,c_t=NULL,c_a=NULL) {
       custom_params_a<-params[(2+c_t):(2+c_t+c_a)]
     }
 
+    else{
+
     custom.model.a<-NULL
     custom.model.t<-NULL
     custom_params_t<-NULL
     custom_params_a<-NULL
-
+    }
 
   },
   error=function(e) {

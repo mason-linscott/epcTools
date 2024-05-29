@@ -9,7 +9,7 @@ base.lik(cache, p, c_t = NULL, c_a = NULL)
 \arguments{
 \item{cache}{A cache object created using epcTools.}
 
-\item{pars}{Numeric vector of parameters to be loaded.}
+\item{p}{Numeric vector of parameters to be evaluated. This must equal the number of parameters expected in the cache object (i.e. theta, sig2, and alpha or EPC parameters that can be used to generate alpha/theta such as b0 and b1 for a linear model)}
 }
 \value{
 A numeric likelihood value

@@ -2,7 +2,7 @@
 % Please edit documentation in R/drop.random.extant.R
 \name{drop.random.extant}
 \alias{drop.random.extant}
-\title{Drop random extant tip}
+\title{Drop a random set of extant tips}
 \usage{
 drop.random.extant(phy, m, tol = 1e-08)
 }
@@ -15,5 +15,5 @@ drop.random.extant(phy, m, tol = 1e-08)
 A tree with dropped extant tips
 }
 \description{
-Drop random extant tip
+Drop a random set of extant tips
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/epc.max.lik.R
 \name{epc.max.lik}
 \alias{epc.max.lik}
-\title{EPC likelihood function}
+\title{EPC maximum likelihood multisearch function}
 \usage{
 epc.max.lik(cache, p, c_t = NULL, c_a = NULL, skip_dentist = FALSE)
 }

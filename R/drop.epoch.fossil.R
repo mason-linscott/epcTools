@@ -1,4 +1,4 @@
-#' Drop all tips from epoch
+#' Drop all tips from a time epoch
 #'
 #' @param phy A phylogenetic tree.
 #'

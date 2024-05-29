@@ -6,7 +6,7 @@
 #'
 #' @param p Numeric vector of starting parameters to be loaded corresponding to parameters specified in cache object (format: theta, sig2, alpha; if any parameter varies with the environment the model parameters follow the same order). If NULL start.searcher function will be run instead.
 #'
-#' @param method A string corresponding to the optimx::optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.
+#' @param method A string corresponding to the optimx algorithm to be run, recommended 'Nelder-Mead' for first search followed by 'BFGS'.
 #'
 #' @param c_t A custom theta function under an EPC process, NULL if linear or step is being used.
 #'
