@@ -1,0 +1,106 @@
+---
+  output: github_document
+---
+
+  <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+  '''{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+'''
+
+```{r packages, include=FALSE}
+require(devtools)
+#install_github("https://github.com/mason-linscott/epcTools")
+require(dplyr)
+require(bayou)
+require(phytools)
+require(geiger)
+require(BAMMtools)
+require(dplyr)
+require(PCMBase)
+require(castor)
+require(adephylo)
+require(dentist)
+require(spatstat.utils)
+require(doParallel)
+require(epcTools)
+require(dentist)
+require(optimx)
+```
+
+# epcTools
+
+<!-- badges: start -->
+  [![status](https://img.shields.io/badge/status:-v0.1c-green)]()
+  [![status: support](https://img.shields.io/badge/support:-yes-green)]()
+<!-- badges: end -->
+
+  epcTools (**e**co**p**hysiological **c**onstrained trait **Tools**), is a R package designed to identify how the environment influencces parameters of Ornstein Uhlenbeck models of trait evolution. Currently it does this for only a single trait.
+
+
+## Installation
+
+'epcTools' can be installed from this github repository. Simply enter the following code:
+
+  ``` r
+# install.packages("devtools")
+devtools::install_github("mason-linscott/epcTools")
+```
+## A simulated example
+
+We will need to simulate a phylogeny and environmental vector. We can then use these two to simulate an EPC cache object which will vary with the trait of interest.
+
+The sim.epc function requires several arguments. First, the tree and environmental values but also including other parameters documented elsewhere such as the type of EPC relationship and what variable(s) are affected by the environment. Here we simulate a cache object with alpha and theta varying with the environment and ten time slices.
+
+```{r simulate}
+#Tree and environment
+library(epcTools)
+tree_example<-epcTools::sim.tree(100,200,100,1)
+env_example<-(c(6,8,11,13,9,8,5,4,8,10))
+
+#Parameters to simulate under
+base_sig2=0.5
+base_b0_t=1
+base_b1_t=2
+base_b0_a=0.01
+base_b1_a=0.03
+base_slice=10
+
+
+sim0.5f_200b_at_linear<-sim.epc(tree_example,epc_params=c("alpha","theta"),m_type="linear",X=env_example,n_slice=base_slice,1,b0_a=base_b0_a,b1_a=base_b1_a,sig2=base_sig2,b0_t=base_b0_t,b1_t=base_b1_t)
+
+```
+
+## Visualize how the traits are varying with the environment
+
+```{r phenogram}
+#EPC phenogram
+sim.epc.phenogram(sim0.5f_200b_at_linear[[1]],10)
+
+```
+
+## epcTools maximum likelihood search
+
+Now, lets see if we can recover the parameters we simulated our model under. This requires invoking the epc.max.lik() function. Note that this function can take a vector of starting parameters fed by the user or find one automatically using the start.searcher function.
+
+```{r search}
+#EPC phenogram
+example_results<-epc.max.lik(sim0.5f_200b_at_linear[[1]])
+
+summary(example_results)
+
+```
+
+
+## Dentist parameter visualization
+
+```{r visualization}
+#EPC phenogram
+plot(example_results)
+
+```
