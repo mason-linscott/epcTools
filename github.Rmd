@@ -96,6 +96,7 @@ summary(example_results)
 
 ```
 
+Looking at the summarized output, we can see that the maximum likelihood estimate did indeed recover the linear relationship of the environment on alpha and theta. However, how confident can we be in these paremeter estimates? To solve this issue, 'epcTools' uses 'dentist' to generate the 95% CI around each of the ML parameter estimates. Let's see what these look like:
 
 ## Dentist parameter visualization
 
