@@ -1,9 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-’’‘{r, include = FALSE} knitr::opts_chunk\$set( collapse = TRUE, comment
-= “\#\>”, fig.path = “man/figures/README-”, out.width = “100%” )’’’
-
 # epcTools
 
 <!-- badges: start -->
@@ -13,9 +10,12 @@
 <!-- badges: end -->
 
 epcTools (**e**co**p**hysiological **c**onstrained trait **Tools**), is
-a R package designed to identify how the environment influencces
-parameters of Ornstein Uhlenbeck models of trait evolution. Currently it
-does this for only a single trait.
+a R package designed to identify how the environment influences
+parameters of Ornstein-Uhlenbeck models of trait evolution. This
+approach is currently oriented around ecophysiologically constrained
+traits, or traits whose expression is modulated by a certain level of
+environmental resource availability, but it can be used for other time
+varying processes. The current implementation is for single traits.
 
 ## Installation
 
@@ -64,7 +64,7 @@ sim0.5f_200b_at_linear<-sim.epc(tree_example,epc_params=c("alpha","theta"),m_typ
 sim.epc.phenogram(sim0.5f_200b_at_linear[[1]],10)
 ```
 
-![](github_files/figure-gfm/phenogram-1.png)<!-- -->
+<img src="man/figures/README-phenogram-1.png" width="100%" />
 
 ## epcTools maximum likelihood search
 
@@ -76,81 +76,85 @@ find one automatically using the start.searcher function.
 ``` r
 #EPC phenogram
 example_results<-epc.max.lik(sim0.5f_200b_at_linear[[1]])
-```
+#> Starting initial iterative maximum likelihood search...
+#> First search     AIC:350.43
+#> Starting second iterative maximum likelihood search...
+#> Second search    AIC:350.43
+#> Starting third iterative maximum likelihood search...
+#> Third search     AIC:350.43
+#> Starting last iterative maximum likelihood search...
+#> Last search  AIC:350.43
+#> [1] "Calculating intervals at a confidence level of 95%"
+#> [1] "Done replicate 500"
+#> [1] "CI of values (the 29 replicates within 5.53524884675818 neglnL of the optimum)"
+#>        neglnL parameter_1 parameter_2 parameter_3 parameter_4 parameter_5
+#> [1,] 170.2129   0.8391762    1.976150   0.4294995  0.02183338  0.02946018
+#> [2,] 175.6873   1.0248757    2.018695   0.5279465  0.03164273  0.03506429
+#> [1] "Rough volume of good region is 4.27577142350907e-08"
+#> [1] "Done replicate 1000"
+#> [1] "CI of values (the 143 replicates within 5.53524884675818 neglnL of the optimum)"
+#>        neglnL parameter_1 parameter_2 parameter_3 parameter_4 parameter_5
+#> [1,] 170.2129   0.8391762    1.965736   0.4294995  0.01476198  0.02862064
+#> [2,] 175.6873   1.0924705    2.019601   0.5351442  0.03164273  0.03535046
+#> [1] "Rough volume of good region is 1.6374662653123e-07"
+#> [1] "Done replicate 1500"
+#> [1] "CI of values (the 369 replicates within 5.53524884675818 neglnL of the optimum)"
+#>        neglnL parameter_1 parameter_2 parameter_3 parameter_4 parameter_5
+#> [1,] 170.2129   0.8391762    1.965736   0.4294995  0.01177903  0.02862064
+#> [2,] 175.7282   1.0924705    2.019601   0.5351442  0.03164273  0.03668197
+#> [1] "Rough volume of good region is 2.30804415278014e-07"
+#> [1] "Done replicate 2000"
+#> [1] "CI of values (the 528 replicates within 5.53524884675818 neglnL of the optimum)"
+#>        neglnL parameter_1 parameter_2 parameter_3 parameter_4 parameter_5
+#> [1,] 170.2129   0.8391762    1.965736   0.4285947  0.01133985  0.02862064
+#> [2,] 175.7403   1.0924705    2.019601   0.5351442  0.03164273  0.03668197
+#> [1] "Rough volume of good region is 2.37927846133854e-07"
+#> [1] "Done replicate 2500"
+#> [1] "CI of values (the 676 replicates within 5.53524884675818 neglnL of the optimum)"
+#>        neglnL parameter_1 parameter_2 parameter_3 parameter_4 parameter_5
+#> [1,] 170.2129   0.8391762    1.965216   0.4285947 0.002576456  0.02862064
+#> [2,] 175.7403   1.0924705    2.019601   0.5351442 0.031642727  0.03778539
+#> [1] "Rough volume of good region is 3.9099059819795e-07"
 
-    ## Starting initial iterative maximum likelihood search...
-    ## First search     AIC:737.97
-    ## Starting second iterative maximum likelihood search...
-    ## Second search    AIC:411.45
-    ## Starting third iterative maximum likelihood search...
-    ## Third search     AIC:411.45
-    ## Starting last iterative maximum likelihood search...
-    ## Last search  AIC:411.45
-    ## [1] "Calculating intervals at a confidence level of 95%"
-    ## [1] "Done replicate 500"
-    ## [1] "CI of values (the 28 replicates within 5.53524884675818 neglnL of the optimum)"
-    ##        neglnL parameter_1 parameter_2 parameter_3  parameter_4 parameter_5
-    ## [1,] 200.7234   0.8677974    1.923792   0.4569893 0.0004016144  0.02687406
-    ## [2,] 206.1521   1.5935864    2.023833   0.5833632 0.0006383193  0.03459410
-    ## [1] "Rough volume of good region is 1.67676824580573e-08"
-    ## [1] "Done replicate 1000"
-    ## [1] "CI of values (the 79 replicates within 5.53524884675818 neglnL of the optimum)"
-    ##        neglnL parameter_1 parameter_2 parameter_3  parameter_4 parameter_5
-    ## [1,] 200.7234   0.8677974    1.909459   0.4569893 0.0004016144  0.02687406
-    ## [2,] 206.2457   1.7615136    2.023833   0.5833632 0.0006383193  0.03635349
-    ## [1] "Rough volume of good region is 2.89849898015094e-08"
-    ## [1] "Done replicate 1500"
-    ## [1] "CI of values (the 225 replicates within 5.53524884675818 neglnL of the optimum)"
-    ##        neglnL parameter_1 parameter_2 parameter_3  parameter_4 parameter_5
-    ## [1,] 200.7234   0.8677974    1.908338   0.4569893 0.0004016144  0.02687406
-    ## [2,] 206.2457   1.7615136    2.023833   0.5833632 0.0006383193  0.03649925
-    ## [1] "Rough volume of good region is 2.97191936979039e-08"
-    ## [1] "Done replicate 2000"
-    ## [1] "CI of values (the 375 replicates within 5.53524884675818 neglnL of the optimum)"
-    ##        neglnL parameter_1 parameter_2 parameter_3  parameter_4 parameter_5
-    ## [1,] 200.7234   0.8677974    1.908338   0.4569893 0.0004016144  0.02687406
-    ## [2,] 206.2457   1.7615136    2.023833   0.5930188 0.0006383193  0.03676608
-    ## [1] "Rough volume of good region is 3.28767325150994e-08"
-    ## [1] "Done replicate 2500"
-    ## [1] "CI of values (the 510 replicates within 5.53524884675818 neglnL of the optimum)"
-    ##        neglnL parameter_1 parameter_2 parameter_3  parameter_4 parameter_5
-    ## [1,] 200.7234   0.8677974    1.908338   0.4569893 0.0004016144  0.02687406
-    ## [2,] 206.2457   1.7615136    2.023833   0.5930188 0.0006383193  0.03676608
-    ## [1] "Rough volume of good region is 3.28767325150994e-08"
-
-``` r
 summary(example_results)
+#> An EPC - alpha model was ran where those paremeters had an linearrelationship with the environment
+#> 
+#> Maximum likelihood estimate:
+#> 170.212942386153
+#> 
+#> Number of Parameters:
+#> 5
+#> 
+#> AIC:
+#> 350.425884772307 An EPC - theta model was ran where those paremeters had an linearrelationship with the environment
+#> 
+#> Maximum likelihood estimate:
+#> 170.212942386153
+#> 
+#> Number of Parameters:
+#> 5
+#> 
+#> AIC:
+#> 350.425884772307
+#> 
+#> Parameters Estimates: 
+#>                       b0_t     b1_t      sig2        b0_a       b1_a
+#> best             0.8560128 2.007563 0.4949117 0.031123088 0.03063689
+#> lower.CI         0.8391762 1.965216 0.4285947 0.002576456 0.02862064
+#> upper.CI         1.0924705 2.019601 0.5351442 0.031642727 0.03778539
+#> lowest.examined  0.7011635 1.412827 0.3081205 0.002215806 0.01969982
+#> highest.examined 1.1557557 2.441308 0.6098790 0.037081521 0.04244923
 ```
 
-    ## Model Type:
-    ## alpha linear
-    ## 
-    ## Maximum likelihood estimate:
-    ## 200.723357859623
-    ## 
-    ## Number of Parameters:
-    ## 5
-    ## 
-    ## AIC:
-    ## 411.446715719246 Model Type:
-    ## theta linear
-    ## 
-    ## Maximum likelihood estimate:
-    ## 200.723357859623
-    ## 
-    ## Number of Parameters:
-    ## 5
-    ## 
-    ## AIC:
-    ## 411.446715719246
-    ## 
-    ## Parameters Estimates: 
-    ##                       b0_t     b1_t      sig2         b0_a       b1_a
-    ## best             1.5527626 1.941907 0.5037025 0.0004963497 0.03117389
-    ## lower.CI         0.8677974 1.908338 0.4569893 0.0004016144 0.02687406
-    ## upper.CI         1.7615136 2.023833 0.5930188 0.0006383193 0.03676608
-    ## lowest.examined  0.6443076 1.412109 0.4196763 0.0003361091 0.02095273
-    ## highest.examined 1.8606975 2.526612 0.6621096 0.0008086131 0.04040731
+Looking at the summarized output, we can see that the maximum likelihood
+estimate did indeed recover the linear relationship of the environment
+on alpha and theta. However, how confident can we be in these paremeter
+estimates? To solve this issue, ‘epcTools’ uses ‘dentist’ to generate
+the 95% CI around each of the ML parameter estimates which we can see in
+the summary function. However, how do these 95% CI estimates look on a
+likelihood surface? Are the parameter estimates on a ridge (not
+desirable) or on a well defined peak (desirable). Let’s see what these
+look like:
 
 ## Dentist parameter visualization
 
@@ -159,4 +163,8 @@ summary(example_results)
 plot(example_results)
 ```
 
-![](github_files/figure-gfm/visualization-1.png)<!-- -->
+<img src="man/figures/README-visualization-1.png" width="100%" />
+
+As you can see, there is some nuance to the relationships each variable
+has with each other and the roughness of the likelihood surface.
+However, each variable exists in a clearly defined peak.

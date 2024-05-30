@@ -10,3 +10,5 @@ Encoding: UTF-8
 LazyData: true
 Imports: dplyr, phytools, geiger, BAMMtools, dplyr, PCMBase, castor, adephylo, dentist, spatstat.utils, doParallel, ape, optimx
 RoxygenNote: 7.3.1
+Depends: 
+    R (>= 2.10)

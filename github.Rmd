@@ -4,14 +4,9 @@
 
   <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-  '''{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-'''
+```{r, include = FALSE} 
+knitr::opts_chunk$set( collapse = TRUE, comment = "#>", fig.path = "man/figures/README-", out.width = "100%" ) 
+```
 
 ```{r packages, include=FALSE}
 require(devtools)
@@ -40,7 +35,7 @@ require(optimx)
   [![status: support](https://img.shields.io/badge/support:-yes-green)]()
 <!-- badges: end -->
 
-  epcTools (**e**co**p**hysiological **c**onstrained trait **Tools**), is a R package designed to identify how the environment influencces parameters of Ornstein Uhlenbeck models of trait evolution. Currently it does this for only a single trait.
+  epcTools (**e**co**p**hysiological **c**onstrained trait **Tools**), is a R package designed to identify how the environment influences parameters of Ornstein-Uhlenbeck models of trait evolution. This approach is currently oriented around ecophysiologically constrained traits, or traits whose expression is modulated by a certain level of environmental resource availability, but it can be used for other time varying processes. The current implementation is for single traits.
 
 
 ## Installation
@@ -51,6 +46,22 @@ require(optimx)
 # install.packages("devtools")
 devtools::install_github("mason-linscott/epcTools")
 ```
+
+## General usage
+
+The general workflow for empirical datasets is as follows: create an EPC cache object -> run epc.max.lik search
+
+While it may sound simple, all the data needs to be in the right format. We have included an example empirical dataset with the package to help users understand the required input format.
+
+```{r workflow}
+data(diatom_data)
+
+diatom_cache<-cache.epc(mtree=diatom_data$diatom_tree,epc_params = "alpha",environment_data = diatom_data$diatom_environment,n_slice = 10, trait_data = diatom_data$diatom_traits[,1,drop=FALSE])
+
+#diatom_epc_search<-epc.max.lik(diatom_cache)
+
+```
+
 ## A simulated example
 
 We will need to simulate a phylogeny and environmental vector. We can then use these two to simulate an EPC cache object which will vary with the trait of interest.
@@ -93,15 +104,31 @@ Now, lets see if we can recover the parameters we simulated our model under. Thi
 example_results<-epc.max.lik(sim0.5f_200b_at_linear[[1]])
 
 summary(example_results)
-
 ```
 
-Looking at the summarized output, we can see that the maximum likelihood estimate did indeed recover the linear relationship of the environment on alpha and theta. However, how confident can we be in these paremeter estimates? To solve this issue, 'epcTools' uses 'dentist' to generate the 95% CI around each of the ML parameter estimates. Let's see what these look like:
+Looking at the summarized output, we can see that the maximum likelihood estimate did indeed recover the linear relationship of the environment on alpha and theta. However, how confident can we be in these paremeter estimates? To solve this issue, 'epcTools' uses 'dentist' to generate the 95% CI around each of the ML parameter estimates which we can see in the summary function. However, how do these 95% CI estimates look on a likelihood surface? Are the parameter estimates on a ridge (not desirable) or on a well defined peak (desirable). Let's see what these look like:
 
 ## Dentist parameter visualization
 
 ```{r visualization}
-#EPC phenogram
+#Dentist output
 plot(example_results)
 
 ```
+
+Well, some parameters certainly look more peak like than others but that is expected. Sig2 and alpha are known to have a ridgelike relationship with each other and this is true for the constituent EPC parameters that go into either of these (b0a and b1a here). Notice, however, that the slope parameter (b1a) has a much more defined peak than the intercept parameter (b0a) which suggests support for a linear relationship. To really understand if this is real however, we need to compare the AIC of the EPC-AT model to a single peak OU or BM model. Here, we will just do OU to save time.
+
+
+## EPC-AT vs. OU comparison
+```{r OU comparison}
+#First, we have to change the cache epc params to be "OU" to run an OU search. Then we will skip dentist as we only want the AIC output.
+sim0.5f_200b_at_linear[[1]]$epc_params<-"OU"
+OU_example<-epc.max.lik(sim0.5f_200b_at_linear[[1]],skip_dentist = TRUE)
+
+summary(OU_example)
+
+
+cat(paste0("EPC-AT: ",example_results$fit$AIC, "OU: ",OU_example$fit$AIC))
+```
+
+As you can see, the EPC-AT model has a much lower AIC than the OU model, indiciating that there is strong support for an EPC-environment relationship on the trait.
