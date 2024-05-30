@@ -56,7 +56,7 @@ While it may sound simple, all the data needs to be in the right format. We have
 ```{r workflow}
 data(diatom_data)
 
-diatom_cache<-cache.epc(mtree=diatom_data$diatom_tree,epc_params = "alpha",environment_data = diatom_data$diatom_environment,n_slice = 10, trait_data = diatom_data$diatom_traits[,1,drop=FALSE])
+#diatom_cache<-cache.epc(mtree=diatom_data$diatom_tree,epc_params = "alpha",environment_data = #diatom_data$diatom_environment,n_slice = 10, trait_data = diatom_data$diatom_traits[,1,drop=FALSE])
 
 #diatom_epc_search<-epc.max.lik(diatom_cache)
 
@@ -116,7 +116,7 @@ plot(example_results)
 
 ```
 
-Well, some parameters certainly look more peak like than others but that is expected. Sig2 and alpha are known to have a ridgelike relationship with each other and this is true for the constituent EPC parameters that go into either of these (b0a and b1a here). Notice, however, that the slope parameter (b1a) has a much more defined peak than the intercept parameter (b0a) which suggests support for a linear relationship. To really understand if this is real however, we need to compare the AIC of the EPC-AT model to a single peak OU or BM model. Here, we will just do OU to save time.
+Well, some parameters certainly look more peak like than others but that is expected. Sig2 and alpha are known to have a ridge like relationship with each other and this is true for the constituent EPC parameters that go into either of these (b0a and b1a here). Notice, however, that the slope parameter (b1a) has a much more defined peak than the intercept parameter (b0a) which suggests support for a linear relationship. To really understand if this is real however, we need to compare the AIC of the EPC-AT model to a single peak OU or BM model. Here, we will just do OU to save time.
 
 
 ## EPC-AT vs. OU comparison
@@ -125,10 +125,8 @@ Well, some parameters certainly look more peak like than others but that is expe
 sim0.5f_200b_at_linear[[1]]$epc_params<-"OU"
 OU_example<-epc.max.lik(sim0.5f_200b_at_linear[[1]],skip_dentist = TRUE)
 
-summary(OU_example)
 
-
-cat(paste0("EPC-AT: ",example_results$fit$AIC, "OU: ",OU_example$fit$AIC))
+cat(paste0("EPC-AT: ",example_results$fit$AIC, "OU: ",OU_example$AIC))
 ```
 
 As you can see, the EPC-AT model has a much lower AIC than the OU model, indiciating that there is strong support for an EPC-environment relationship on the trait.
